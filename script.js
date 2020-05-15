@@ -1,8 +1,13 @@
 const bookList = document.getElementById("bookList");
-const addBook = document.getElementById("submitBtn");
+const addBook = document.querySelector("#submitBtn");
+const titleForm = document.getElementById('title');
+const authorForm = document.getElementById('author');
+const pagesForm = document.getElementById('pages');
+const readForm = document.getElementById('read');
+const notRreadForm = document.getElementById('not-read');
 //const deleteBtn = document.getElementsByClassName("")
 
-library = [
+let library = [
     {
         title: "The Hobbit",
         author: "JRR Tolkien",
@@ -16,9 +21,8 @@ library = [
         read: "not read"
     },
 ];
-
-addBook.addEventListener("click", addBookToLibrary());
-
+adjournLibrary()
+addBook.addEventListener('click', addBookToLibrary);
 
 function Book(title, author, pages, read){
     this.title = title
@@ -36,26 +40,34 @@ function render (template, selector) {
 	if (!node) return;
 	node.innerHTML = template;
 };
+
 function addBookToLibrary() {
     createNewBook();
     adjournLibrary();
-}
+    document.getElementById("newBook").reset();
+};
+
 function createNewBook() {
-    let title = document.getElementById("title").value
-    let author = document.getElementById("author").value
-    let pages = document.getElementById("pages").value
-    let read = document.getElementById("read").value
+    checkMissingFields()
+    if errors
+    let title = titleForm.value
+    let author = authorForm.value
+    let pages = pagesForm.value
+    let read
+    readForm.checked ? read = "read" : notRreadForm.checked ? read = "not read" : alert("Please add read status.");
     let thisBook = new Book(title, author, pages, read);
     library.push(thisBook);
 };
 
 function resetLibrary() {
-    library.map(thisOne => {
-
+    const bookRows = document.querySelectorAll('.bookRow')
+    bookRows.forEach(bookRow => {
+        bookList.removeChild(bookRow);
     })
 };
 
 function adjournLibrary() {
+    resetLibrary()
     library.map(thisOne => {
         const titleVoice = document.createElement('td')
         titleVoice.textContent = thisOne.title;
@@ -68,6 +80,7 @@ function adjournLibrary() {
         const deleteBtn = document.createElement('button')
         deleteBtn.textContent = "Delete"
         const newRow = document.createElement('tr');
+        newRow.setAttribute('class','bookRow')
         bookList.appendChild(newRow);
         newRow.appendChild(titleVoice);
         newRow.appendChild(authorVoice);
@@ -75,4 +88,12 @@ function adjournLibrary() {
         newRow.appendChild(readVoice);
         newRow.appendChild(deleteBtn);
     });
+}
+
+function checkMissingFields() {
+    var error = true
+    return titleForm.value == "" ? alert("Missing title")
+        : authorForm.value == "" ? alert("Missing author")
+        : pagesForm.value == "" ? alert("Missing pages value")
+        : (errors = false)
 }

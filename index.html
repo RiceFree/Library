@@ -18,15 +18,15 @@
   </table>
 
   <form action="" id ="newBook">
-    <input type = "text" id="title" value="Title"><br>
-    <input type = "text" id="author" value="Author"><br>
-    <input type = "number" id ="pages" value="Pages"><br>
-    <input type="radio" id="read" name="read" value="read">
+    <input type = "text" id="title" placeholder="Title" required><br>
+    <input type = "text" id="author" placeholder="Author" required><br>
+    <input type = "number" id ="pages" placeholder="Pages" required><br>
+    <input type="radio" id="read" name="read" value="read" required>
     <label for="read">Read</label><br>
-    <input type="radio" id="read" name="read" value="not read">
-    <label for="not-read">Not Read</label><br>
-    <input id="submitBtn" type="submit" value="Add">
+    <input type="radio" id="not-read" name="read" value="not read">
+    <label for="not-read">Not Read</label>
   </form>
+  <button type="submit" id="submitBtn">Add</button>
  
   <script src="script.js"></script>
 </body>
