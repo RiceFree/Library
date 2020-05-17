@@ -5,7 +5,7 @@ const authorForm = document.getElementById('author');
 const pagesForm = document.getElementById('pages');
 const readForm = document.getElementById('read');
 const notRreadForm = document.getElementById('not-read');
-//const deleteBtn = document.getElementsByClassName("")
+let deleteBtns = document.getElementsByClassName("deleteBtn");
 
 let library = [
     {
@@ -23,6 +23,9 @@ let library = [
 ];
 adjournLibrary()
 addBook.addEventListener('click', addBookToLibrary);
+/**deleteBtns.forEach(delBtn => {
+    delBtn.addEventListener('click', deleteBook(delBtn.getAttribute('data-index')))
+})**/
 
 function Book(title, author, pages, read){
     this.title = title
@@ -47,9 +50,17 @@ function addBookToLibrary() {
     document.getElementById("newBook").reset();
 };
 
-function createNewBook() {
-    checkMissingFields()
-    if errors
+function checkMissingFields() {
+    var error = true
+        titleForm.value == "" ? alert("Missing title")
+        : authorForm.value == "" ? alert("Missing author")
+        : pagesForm.value == "" ? alert("Missing numbers of pages")
+        : (error = false)
+    return error
+};
+
+function createNewBook() { 
+    if (checkMissingFields()) return;
     let title = titleForm.value
     let author = authorForm.value
     let pages = pagesForm.value
@@ -79,6 +90,12 @@ function adjournLibrary() {
         readVoice.textContent = thisOne.read;
         const deleteBtn = document.createElement('button')
         deleteBtn.textContent = "Delete"
+        deleteBtn.setAttribute('class','deleteBtn');
+        deleteBtn.setAttribute('data-index',library.indexOf(thisOne));
+        deleteBtn.addEventListener('click', (e) => {
+            let indexNum = deleteBtn.getAttribute('data-index');
+            deleteBook(indexNum)
+        });
         const newRow = document.createElement('tr');
         newRow.setAttribute('class','bookRow')
         bookList.appendChild(newRow);
@@ -90,10 +107,7 @@ function adjournLibrary() {
     });
 }
 
-function checkMissingFields() {
-    var error = true
-    return titleForm.value == "" ? alert("Missing title")
-        : authorForm.value == "" ? alert("Missing author")
-        : pagesForm.value == "" ? alert("Missing pages value")
-        : (errors = false)
+function deleteBook(indexNum) {
+    library.splice(indexNum,1);
+    adjournLibrary()
 }
