@@ -7,20 +7,9 @@ const readForm = document.getElementById('read');
 const notRreadForm = document.getElementById('not-read');
 let deleteBtns = document.getElementsByClassName("deleteBtn");
 
-let library = [
-    {
-        title: "The Hobbit",
-        author: "JRR Tolkien",
-        pages: "342",
-        read: "read"
-    },
-    {
-        title: "Narnia",
-        author: "Lewis",
-        pages: "583",
-        read: "not read"
-    },
-];
+let book1 = new Book("The Hobbit","JRR Tolkien", "342", "read");
+let book2 = new Book ("Narnia", "CS Lewis", "583", "not read")
+let library = [book1, book2];
 adjournLibrary()
 addBook.addEventListener('click', addBookToLibrary);
 /**deleteBtns.forEach(delBtn => {
@@ -35,7 +24,10 @@ function Book(title, author, pages, read){
 };
 
 Book.prototype.info = function() {
-    return title + " by " + author + ", " + pages + " pages, " + this.read
+    return this.title + " by " + this.author + ", " + this.pages + " pages, " + this.read
+}
+Book.prototype.readStatusToggle = function() {
+    return this.read == "read" ? this.read = "not read" : this.read = "read";
 }
 
 function render (template, selector) {
@@ -88,6 +80,8 @@ function adjournLibrary() {
         pagesVoice.textContent = thisOne.pages;
         const readVoice = document.createElement('td')
         readVoice.textContent = thisOne.read;
+        const deleteContainer = document.createElement('td');
+        const changeContainer = document.createElement('td');
         const deleteBtn = document.createElement('button')
         deleteBtn.textContent = "Delete"
         deleteBtn.setAttribute('class','deleteBtn');
@@ -96,6 +90,13 @@ function adjournLibrary() {
             let indexNum = deleteBtn.getAttribute('data-index');
             deleteBook(indexNum)
         });
+        const changeReadStatusBtn = document.createElement('button')
+        changeReadStatusBtn.textContent = "Change Read Status";
+        changeReadStatusBtn.setAttribute('data-index',library.indexOf(thisOne));
+        changeReadStatusBtn.addEventListener('click', (e) => {
+            let bookElem = library[changeReadStatusBtn.getAttribute('data-index')];
+            switchReadStatus(bookElem);
+        } )
         const newRow = document.createElement('tr');
         newRow.setAttribute('class','bookRow')
         bookList.appendChild(newRow);
@@ -103,11 +104,19 @@ function adjournLibrary() {
         newRow.appendChild(authorVoice);
         newRow.appendChild(pagesVoice);
         newRow.appendChild(readVoice);
-        newRow.appendChild(deleteBtn);
+        newRow.appendChild(deleteContainer);
+        newRow.appendChild(changeContainer);
+        deleteContainer.appendChild(deleteBtn);
+        changeContainer.appendChild(changeReadStatusBtn);
     });
-}
+};
 
 function deleteBook(indexNum) {
     library.splice(indexNum,1);
-    adjournLibrary()
-}
+    adjournLibrary();
+};
+
+function switchReadStatus(bookElem) {
+    bookElem.readStatusToggle();
+    adjournLibrary();
+};
