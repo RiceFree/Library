@@ -1,20 +1,16 @@
-const bookList = document.getElementById("bookList");
-const addBook = document.querySelector("#submitBtn");
+const bookList = document.getElementById('bookList');
+const addBook = document.getElementById('submitBtn');
 const titleForm = document.getElementById('title');
 const authorForm = document.getElementById('author');
 const pagesForm = document.getElementById('pages');
 const readForm = document.getElementById('read');
 const notRreadForm = document.getElementById('not-read');
-let deleteBtns = document.getElementsByClassName("deleteBtn");
 
 let book1 = new Book("The Hobbit","JRR Tolkien", "342", "read");
-let book2 = new Book ("Narnia", "CS Lewis", "583", "not read")
+let book2 = new Book ("Narnia", "CS Lewis", "583", "not read");
 let library = [book1, book2];
 adjournLibrary()
 addBook.addEventListener('click', addBookToLibrary);
-/**deleteBtns.forEach(delBtn => {
-    delBtn.addEventListener('click', deleteBook(delBtn.getAttribute('data-index')))
-})**/
 
 function Book(title, author, pages, read){
     this.title = title
@@ -39,7 +35,7 @@ function render (template, selector) {
 function addBookToLibrary() {
     createNewBook();
     adjournLibrary();
-    document.getElementById("newBook").reset();
+    document.getElementById('newBook').reset();
 };
 
 function checkMissingFields() {
