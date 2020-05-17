@@ -87,7 +87,8 @@ function adjournLibrary() {
             deleteBook(indexNum)
         });
         const changeReadStatusBtn = document.createElement('button')
-        changeReadStatusBtn.textContent = "Change Read Status";
+        changeReadStatusBtn.textContent = "Change";
+        changeReadStatusBtn.setAttribute('class','changeBtn');
         changeReadStatusBtn.setAttribute('data-index',library.indexOf(thisOne));
         changeReadStatusBtn.addEventListener('click', (e) => {
             let bookElem = library[changeReadStatusBtn.getAttribute('data-index')];

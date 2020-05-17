@@ -14,21 +14,22 @@
       <td>Pages</td>
       <td>Read?</td>
       <td>Delete</td>
-      <td>Change Read Status</td>
+      <td>Read Status</td>
     </tr>
   </table>
-
-  <form action="" id ="newBook">
-    <input type = "text" id="title" placeholder="Title" required><br>
-    <input type = "text" id="author" placeholder="Author" required><br>
-    <input type = "number" id ="pages" placeholder="Pages" required><br>
+<div id="newBook">
+  <form action="">
+    <h3>Add a new book</h3>
+    <input type = "text" id="title" placeholder="Title" required>
+    <input type = "text" id="author" placeholder="Author" required>
+    <input type = "number" id ="pages" placeholder="Pages" required>
     <input type="radio" id="read" name="read" value="read" required>
     <label for="read">Read</label><br>
     <input type="radio" id="not-read" name="read" value="not read">
     <label for="not-read">Not Read</label>
   </form>
   <button type="submit" id="submitBtn">Add</button>
- 
+ </div>
   <script src="script.js"></script>
 </body>
 </html>
